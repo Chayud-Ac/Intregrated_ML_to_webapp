@@ -21,21 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pr)m-1+(+g5!5$b%%nlr7rn+eavs3pz$1w4yfjo6h_jbmpa029'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'api.User' 
 
 # Application definition
 
 INSTALLED_APPS = [
     'corsheaders',
-    'rest_framework'
-    'api'
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'api',
+    'django.core.files.storage',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
