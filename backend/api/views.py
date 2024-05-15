@@ -78,3 +78,14 @@ class PredictionView(APIView):
 
         # Return the prediction
         return Response({'prediction': prediction_class_name, 'score': float(prediction.score)}, status=status.HTTP_200_OK)
+
+class ProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = {
+            "message": "This is a protected view",
+            "user": str(request.user),
+            "email": request.user.email,
+        }
+        return Response(data)

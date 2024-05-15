@@ -20,6 +20,7 @@ const Register = () => {
   });
 
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null); // New state for success messages
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,14 +36,17 @@ const Register = () => {
       );
       console.log(response.data);
       setError(null); // Clear error if the request is successful
+      setSuccess("Registration successful!"); // Set success message
     } catch (error) {
       console.error("Error Response:", error.response); // Log the error response
       // Check if the error response has a data attribute
       if (error.response && error.response.data) {
         console.log("Error Data:", error.response.data); // Log detailed error data
         setError(error.response.data);
+        setSuccess(null); // Clear success message
       } else {
         setError("An error occurred");
+        setSuccess(null); // Clear success message
       }
     }
   };
@@ -96,6 +100,13 @@ const Register = () => {
 
     // Otherwise, display the error as a string
     return <p style={{ color: "red" }}>{error}</p>;
+  };
+
+  // Helper function to render success messages
+  const renderSuccessMessage = () => {
+    if (!success) return null;
+
+    return <p style={{ color: "green" }}>{success}</p>;
   };
 
   return (
@@ -172,6 +183,7 @@ const Register = () => {
           Register
         </button>
         {renderErrorMessages()}
+        {renderSuccessMessage()}
       </form>
     </div>
   );
