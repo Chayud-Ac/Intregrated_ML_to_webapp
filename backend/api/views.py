@@ -13,9 +13,8 @@ import tensorflow as tf
 User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
+    permission_classes = [AllowAny] 
 
 class UserDetailView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()

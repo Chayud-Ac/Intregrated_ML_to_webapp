@@ -10,8 +10,8 @@ router.register(r'predictions', PredictionViewSet)
 
 urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
-    path('user/', UserDetailView.as_view(), name='user-detail'),
+    path('user/', UserDetailView.as_view(), name='user_detail'),
     path('predict/', PredictionView.as_view(), name='predict'),
-    path('', include(router.urls)),
+    path('patients/', PatientViewSet.as_view({'get': 'list', 'post': 'create'}), name='patients'),
+    path('predictions/', PredictionViewSet.as_view({'get': 'list', 'post': 'create'}), name='predictions'),
 ]
-

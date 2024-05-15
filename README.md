@@ -55,3 +55,46 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver
 ```
+
+## Frontend Setup Instructions
+
+1. **Navigate to the Frontend Directory**
+
+   ```bash
+   cd frontend
+   ```
+
+2. **Install Node.js and npm**
+
+   link to download ->>>> [official Node.js website](https://nodejs.org/).
+
+   To check if you have Node.js and npm installed
+
+   ```bash
+   node -v
+   npm -v
+   ```
+
+3. **Install Dependencies**
+
+   Install the necessary dependencies for the React project:
+
+   ```bash
+   npm install
+   ```
+
+4. **Set Up Environment Variables**
+
+   Create a `.env` file in the `frontend` directory:
+
+   ```env
+   REACT_APP_API_URL=http://localhost:8000/api
+   ```
+
+5. **Start the Development Server**
+
+   Start the React development server:
+
+   ```bash
+   npm start
+   ```
