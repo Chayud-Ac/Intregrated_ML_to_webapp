@@ -70,6 +70,7 @@ staticfiles/
 
 # Environment variables
 .env
+ML_model/trained_model.h5
 
 # Venv
 venv/
