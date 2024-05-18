@@ -88,7 +88,7 @@ const Prediction = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/predict/",
+        "http://localhost:8000/api/predict_brain_tumor/",
         data,
         {
           headers: {
@@ -102,7 +102,10 @@ const Prediction = () => {
     } catch (error) {
       console.error("Error Response:", error.response); // Log the error response
       if (error.response && error.response.data) {
-        setError(error.response.data);
+        setError("Token is invalid or expired. Please log in again.");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 3000);
       } else {
         setError("An error occurred");
       }
@@ -170,7 +173,13 @@ const Prediction = () => {
 
   return (
     <div style={containerStyle}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <div
           {...getRootProps()}
           style={{
@@ -205,8 +214,13 @@ const Prediction = () => {
         </div>
       </div>
       <div style={formContainerStyle}>
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Make a Prediction</h2>
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Make a Prediction
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+        >
           <input
             type="text"
             name="patient_name"

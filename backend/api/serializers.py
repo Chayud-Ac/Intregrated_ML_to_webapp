@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-from .models import Patient, Prediction
+from .models import Patient, BrainTumorPrediction , DiabetesPrediction
 
 User = get_user_model()
 
@@ -53,9 +53,15 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = '__all__'
 
-class PredictionSerializer(serializers.ModelSerializer):
+class BrainTumorPredictionSerializer(serializers.ModelSerializer):
     image_file = serializers.ImageField()
 
     class Meta:
-        model = Prediction
+        model = BrainTumorPrediction
+        fields = '__all__'
+
+
+class DiabetesPredictionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiabetesPrediction
         fields = '__all__'

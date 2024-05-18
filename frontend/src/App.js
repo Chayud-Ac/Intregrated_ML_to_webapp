@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Prediction from "./components/Prediction";
 import ProtectedComponent from "./components/ProtectedComponent";
 import Home from "./components/Home";
-// import Prediction from "./components/Prediction";
+import DiabetesPrediction from "./components/DiabetesPrediction";
 import "./styles/fonts.css";
 import "./App.css"; // Import your CSS file
 
@@ -19,6 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/predict" element={<Prediction />} />
+          <Route path="/predict-diabetes" element={<DiabetesPrediction />} />
           <Route path="/protected" component={ProtectedComponent} />
           <Route path="/" exact component={Home} />
           {/* <Route path="/predict" element={<Prediction />} /> */}

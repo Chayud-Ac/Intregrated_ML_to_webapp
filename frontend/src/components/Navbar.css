@@ -1,0 +1,75 @@
+.navStyle {
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(24, 38, 78);
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 0px;
+  font-family: "Roboto";
+}
+
+.linkStyle {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 8px 40px;
+  font-family: "Roboto";
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+}
+
+.linkStyle:hover {
+  background-color: rgba(34, 56, 110, 0.7);
+  border-radius: 4px;
+}
+
+.dropdownStyle {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownLinkStyle {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: "Roboto";
+}
+
+.dropdownLinkStyle:hover {
+  background-color: rgba(34, 56, 110, 0.7);
+  border-radius: 4px;
+}
+
+.dropdownContentStyle {
+  display: none;
+  position: absolute;
+  background-color: rgb(24, 38, 78);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.predictionContainerStyle {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.predictionHoverStyle {
+  background-color: rgb(34, 56, 110);
+}
+
+.dropdownStyle .dropdownContentStyle {
+  display: none;
+}
+
+.dropdownStyle.show .dropdownContentStyle {
+  display: block;
+}

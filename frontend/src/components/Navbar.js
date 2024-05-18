@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 import WebFont from "webfontloader";
 
 WebFont.load({
@@ -9,42 +10,67 @@ WebFont.load({
 });
 
 const Navbar = () => {
-  const navStyle = {
-    padding: "10px 40px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "rgb(24, 38, 78)",
-    color: "white",
-    borderRadius: "4px",
-    marginBottom: "20px",
-    fontFamily: "Roboto, Noto Sans Thai, sans-serif", // Set font family here
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
   };
 
-  const linkStyle = {
-    color: "white",
-    textDecoration: "none",
-    fontWeight: "bold",
-    fontSize: "16px",
-    padding: "8px 20px",
-    fontFamily: "Roboto, Noto Sans Thai, sans-serif", // Set font family here
+  const closeDropdown = () => {
+    setDropdownVisible(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        closeDropdown();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
 
   return (
-    <nav style={navStyle}>
-      <Link to="/" style={linkStyle}>
-        Home
+    <nav className="navStyle">
+      <Link to="/" className="linkStyle">
+        Database
       </Link>
       <div>
-        <Link to="/login" style={linkStyle}>
+        <Link to="/login" className="linkStyle">
           Login
         </Link>
-        <Link to="/register" style={linkStyle}>
+        <Link to="/register" className="linkStyle">
           Register
         </Link>
-        <Link to="/predict" style={linkStyle}>
-          Prediction
-        </Link>
+        <div
+          className={`dropdownStyle ${dropdownVisible ? "show" : ""}`}
+          onClick={toggleDropdown}
+          ref={dropdownRef}
+        >
+          <div className="predictionContainerStyle">
+            <span className="linkStyle">Prediction</span>
+          </div>
+          <div className="dropdownContentStyle">
+            <Link
+              to="/predict"
+              className="dropdownLinkStyle"
+              onClick={closeDropdown}
+            >
+              Brain Tumor
+            </Link>
+            <Link
+              to="/predict-diabetes"
+              className="dropdownLinkStyle"
+              onClick={closeDropdown}
+            >
+              Diabetes Classification
+            </Link>
+          </div>
+        </div>
       </div>
     </nav>
   );

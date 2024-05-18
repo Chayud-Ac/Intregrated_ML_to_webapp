@@ -30,9 +30,38 @@ class Patient(models.Model):
     age = models.IntegerField()
     medical_history = models.TextField()
 
-class Prediction(models.Model):
+class BrainTumorPrediction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     score = models.FloatField()
     prediction_class = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class DiabetesPrediction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+
+    GENDER_CHOICES = [
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+    ]
+
+    SMOKING_HISTORY_CHOICES = [
+        ('No Info', 'No Info'),
+        ('current', 'current'),
+        ('ever', 'ever'),
+        ('former', 'former'),
+        ('never', 'never'),
+        ('not current', 'not current'),
+    ]
+    
+    gender = models.CharField(max_length=10 , choices=GENDER_CHOICES)
+    age = models.IntegerField()
+    hypertension = models.BooleanField()
+    heart_disease = models.BooleanField()
+    smoking_history = models.CharField(max_length=255, choices=SMOKING_HISTORY_CHOICES)
+    bmi = models.FloatField()
+    HbA1c_level = models.FloatField()
+    blood_glucose_level = models.FloatField()
+    diabetes = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
