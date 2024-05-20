@@ -21,9 +21,14 @@ cd Intregrated_ML_to_webapp
 ```bash
 conda env create -f environment.yml
 conda activate fullstack  # Double check the name in environment.yml
+
 ```
 
-### 3. Create a .env file This hold all important parameter that should be keep as secret (eg. database parameter , secret key)
+### 3. Manually create Image_files folder to store image
+
+BACKEND\Image_files
+
+### 4. Create a .env file This hold all important parameter that should be keep as secret (eg. database parameter , secret key)
 
 ```bash
 Inside .env file

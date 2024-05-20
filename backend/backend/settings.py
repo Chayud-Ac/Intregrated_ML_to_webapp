@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -118,17 +117,6 @@ REST_FRAMEWORK = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_URL = '/static/'
-
-# Directory to collect static files for production
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Additional directories to find static files
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'frontend', 'build', 'static'),
-]
-
-print("STATICFILES_DIRS:", STATICFILES_DIRS)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
