@@ -103,3 +103,7 @@ python manage.py runserver
    ```bash
    npm start
    ```
+
+### Local Image
+
+![Screenshot](C:/Users/aciea/Desktop/intregrated/Capture.png)
