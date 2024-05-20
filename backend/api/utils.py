@@ -1,11 +1,11 @@
-from tensorflow.keras.preprocessing.image import img_to_array, load_img
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import img_to_array, load_img # type: ignore
+from tensorflow.keras.preprocessing.image import ImageDataGenerator # type: ignore
 from io import BytesIO
-from PIL import Image
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-import joblib
-import pandas as pd
+from PIL import Image # type: ignore
+import numpy as np # type: ignore
+from sklearn.preprocessing import StandardScaler # type: ignore
+import joblib # type: ignore
+import pandas as pd # type: ignore
 
 def preprocess_image(image_file, target_size=(299, 299)):
     image = Image.open(BytesIO(image_file.read()))

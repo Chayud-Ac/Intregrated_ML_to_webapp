@@ -1,15 +1,15 @@
-from rest_framework import generics, viewsets, status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import generics, viewsets, status # type: ignore
+from rest_framework.views import APIView # type: ignore
+from rest_framework.response import Response # type: ignore
+from rest_framework.permissions import AllowAny, IsAuthenticated # type: ignore
 from .serializers import RegisterSerializer, UserSerializer, PatientSerializer, BrainTumorPredictionSerializer, DiabetesPredictionSerializer
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model # type: ignore
 from .models import Patient, BrainTumorPrediction, DiabetesPrediction
 from .permissions import IsDoctor
 from .utils import preprocess_image , preprocess_data # Import the preprocessing function if needed
-import numpy as np
-import joblib
-import tensorflow as tf
+import numpy as np # type: ignore
+import joblib # type: ignore
+import tensorflow as tf # type: ignore
 
 User = get_user_model()
 
@@ -30,10 +30,12 @@ class PatientViewSet(viewsets.ModelViewSet):
     serializer_class = PatientSerializer
 
 class BrainTumorPredictionViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, IsDoctor]
     queryset = BrainTumorPrediction.objects.all()
     serializer_class = BrainTumorPredictionSerializer
 
 class DiabetesPredictionViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, IsDoctor]
     queryset = DiabetesPrediction.objects.all()
     serializer_class = DiabetesPredictionSerializer
 
@@ -60,8 +62,9 @@ class BrainTumorPredictionView(APIView):
         # Make prediction
         prediction_score = model.predict(input_data)
         prediction_class_index = np.argmax(prediction_score, axis=1)  # Get the class with the highest probability
-        classes = ['Cyst', 'Normal', 'Stone', 'Tumor']
+        classes = ['glioma', 'meningioma', 'notumor', 'pituitary']
         prediction_class_name = classes[prediction_class_index[0]]  # Get the class name based on the index
+        rounded_score = round(prediction_score[0][prediction_class_index[0]], 2)
 
         # Get or create the patient
         patient, created = Patient.objects.get_or_create(
@@ -74,15 +77,27 @@ class BrainTumorPredictionView(APIView):
             patient.medical_history = medical_history
             patient.save()
 
+        # Save the image file
+        image_path = 'Image_files/' + image_file.name  # Adjust the path as needed
+        with open(image_path, 'wb+') as destination:
+            for chunk in image_file.chunks():
+                destination.write(chunk)
+
         # Create or update prediction record
         prediction, _ = BrainTumorPrediction.objects.update_or_create(
             user=request.user,
             patient=patient,
-            defaults={'score': prediction_score[0][prediction_class_index[0]], 'prediction_class': prediction_class_name}
+            defaults={
+                'score': rounded_score,
+                'prediction_class': prediction_class_name,
+                'image_path': image_path  # Save the image path
+            }
         )
 
         # Return the prediction
-        return Response({'prediction': prediction_class_name, 'score': float(prediction.score)}, status=status.HTTP_200_OK)
+        return Response({'prediction': prediction_class_name, 'score': rounded_score}, status=status.HTTP_200_OK)
+
+
 
 
 class DiabetesPredictionView(APIView):
@@ -94,6 +109,7 @@ class DiabetesPredictionView(APIView):
         user = request.user
 
         # Validate and process the input data
+        patient_name = data.get('patient_name')
         age = int(data.get('age'))
         hypertension = data.get('hypertension') == 'true'
         heart_disease = data.get('heart_disease') == 'true'
@@ -102,29 +118,34 @@ class DiabetesPredictionView(APIView):
         blood_glucose_level = float(data.get('blood_glucose_level'))
         gender = data.get('gender')
         smoking_history = data.get('smoking_history')
+        medical_history = data.get('medical_history')
 
         # Preprocess the data
         input_data = preprocess_data(age, hypertension, heart_disease, bmi, HbA1c_level, blood_glucose_level, gender, smoking_history)
 
         # Load the diabetes prediction model
         model = joblib.load('ML_model/best_model_diabetes.pkl')
-
+        diabetes_class = ['None_diabetes' , 'diabetes']
         # Make prediction
         prediction_probabilities = model.predict_proba(input_data)
         prediction = model.predict(input_data)
+        prediction_class = diabetes_class[prediction[0]]
+        
 
         # Get the probability of the predicted class
         prediction_probability = prediction_probabilities[0][prediction[0]]
+        round_prediction_probability = round(prediction_probability ,2)
 
         # Get or create the patient
-        patient_name = data.get('patient_name')
         patient, created = Patient.objects.get_or_create(
             name=patient_name,
-            defaults={'age': age}
+            defaults={'age': age, 
+                      'medical_history': medical_history}
         )
 
         if not created:
             patient.age = age
+            patient.medical_history = medical_history
             patient.save()
 
         # Create or update prediction record
@@ -140,14 +161,16 @@ class DiabetesPredictionView(APIView):
                 'blood_glucose_level': blood_glucose_level,
                 'gender': gender,
                 'smoking_history': smoking_history,
-                'diabetes': prediction[0]  # Assuming the model returns a binary prediction
+                'prediction_probability': round_prediction_probability,
+                'diabetes_prediction': prediction_class,  # Assuming the model returns a binary prediction
             }
         )
 
         return Response({
-            'diabetes': prediction[0],
+            'diabetes': prediction_class,
             'probability': prediction_probability
         }, status=200)
+
     
 
 class ProtectedView(APIView):

@@ -56,7 +56,7 @@ const Navbar = () => {
           </div>
           <div className="dropdownContentStyle">
             <Link
-              to="/predict"
+              to="/TumorPrediction"
               className="dropdownLinkStyle"
               onClick={closeDropdown}
             >

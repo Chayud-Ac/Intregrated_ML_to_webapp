@@ -9,7 +9,7 @@ WebFont.load({
   },
 });
 
-const Prediction = () => {
+const TumorPrediction = () => {
   const [formData, setFormData] = useState({
     patient_name: "",
     age: "",
@@ -269,4 +269,4 @@ const Prediction = () => {
   );
 };
 
-export default Prediction;
+export default TumorPrediction;

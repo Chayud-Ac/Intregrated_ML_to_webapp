@@ -1,5 +1,5 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
-from django.db import models
+from django.contrib.auth.models import AbstractUser, Group, Permission # type: ignore
+from django.db import models # type: ignore
 
 class User(AbstractUser):
     ROLE_CHOICES = (
@@ -36,6 +36,7 @@ class BrainTumorPrediction(models.Model):
     score = models.FloatField()
     prediction_class = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    image_path = models.CharField(max_length=255)
 
 class DiabetesPrediction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -63,5 +64,6 @@ class DiabetesPrediction(models.Model):
     bmi = models.FloatField()
     HbA1c_level = models.FloatField()
     blood_glucose_level = models.FloatField()
-    diabetes = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
+    prediction_probability = models.FloatField()
+    diabetes_prediction = models.CharField(max_length=255)

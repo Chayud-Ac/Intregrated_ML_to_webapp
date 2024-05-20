@@ -62,12 +62,11 @@
   cursor: pointer;
 }
 
-.predictionHoverStyle {
-  background-color: rgb(34, 56, 110);
-}
-
-.dropdownStyle .dropdownContentStyle {
-  display: none;
+.predictionContainerStyle:hover .linkStyle {
+  background-color: rgba(34, 56, 110, 0.7);
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
 }
 
 .dropdownStyle.show .dropdownContentStyle {
