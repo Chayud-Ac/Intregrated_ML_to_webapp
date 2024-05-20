@@ -1,11 +1,18 @@
 # Intregrated_ML_to_webapp
 
-" This project demonstrate web application of how we integrate machine learning model into web application using django and react"
+" This project demonstrate web application of how we integrate machine learning model into web application using django and react. After develop machine learning model , we want to deploy the model into the web application for tasking like classification or prediction. Create Django and Django REST Framework endpoints to handle API requests. The endpoint will then recieve the necessary feature for machine learning model to predict or classify from the server frontend. It's important to know that before directly passing all the feature or image into the model, we have to preprocess them first. After preprocess and pass to the model , it eventually give the output and response back to the frontend server."
+
+## Features
+
+- Image Classification
+- Diabetes Prediction
+- API Integration with Django and Django REST Framework
+- React Frontend
+- linking django with sqlserver
 
 ## Setup Instructions
 
-- **Conda**: Ensure you have Conda installed on your machine. You can download it from [Conda's official site](https://docs.conda.io/en/latest/miniconda.html).
-- **Python**: Ensure you have Python installed (usually installed with Conda).
+- **Conda**: installed on your machine
 
 ### 1. Clone the Repository
 
@@ -28,14 +35,14 @@ conda activate fullstack  # Double check the name in environment.yml
 
 BACKEND\Image_files
 
-### 4. Create a .env file This hold all important parameter that should be keep as secret (eg. database parameter , secret key)
+### 4. Create a .env file This hold all important parameter that should be keep as secret (eg. database parameter , secret key) BACKEND/.env
 
 ```bash
 Inside .env file
 
 DEBUG=True
 SECRET_KEY=your-secret-key
-DB_NAME=patient_data
+DB_NAME=your_database_name
 DB_USER=root
 DB_PASSWORD=your_database_password
 DB_HOST=127.0.0.1
