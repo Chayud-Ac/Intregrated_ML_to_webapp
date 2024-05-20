@@ -106,6 +106,6 @@ python manage.py runserver
 
 ### Local Image
 
-![Screenshot](sample_image/web/Capture.png)
-![Screenshot](sample_image/web/Capture2.png)
-![Screenshot](sample_image/web/data.png)
+![Screenshot](sample_image/web/Capture.PNG)
+![Screenshot](sample_image/web/Capture2.PNG)
+![Screenshot](sample_image/web/data.PNG)
