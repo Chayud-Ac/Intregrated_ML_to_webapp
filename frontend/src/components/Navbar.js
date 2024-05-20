@@ -36,14 +36,14 @@ const Navbar = () => {
 
   return (
     <nav className="navStyle">
-      <Link to="/" className="linkStyle">
+      <Link to="/Database" className="linkStyle">
         Database
       </Link>
       <div>
         <Link to="/login" className="linkStyle">
           Login
         </Link>
-        <Link to="/register" className="linkStyle">
+        <Link to="/" className="linkStyle">
           Register
         </Link>
         <div

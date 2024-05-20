@@ -65,6 +65,7 @@ class BrainTumorPredictionView(APIView):
         classes = ['glioma', 'meningioma', 'notumor', 'pituitary']
         prediction_class_name = classes[prediction_class_index[0]]  # Get the class name based on the index
         rounded_score = round(prediction_score[0][prediction_class_index[0]], 2)
+        formatted_score = f"{rounded_score:.2f}"
 
         # Get or create the patient
         patient, created = Patient.objects.get_or_create(
@@ -95,7 +96,7 @@ class BrainTumorPredictionView(APIView):
         )
 
         # Return the prediction
-        return Response({'prediction': prediction_class_name, 'score': rounded_score}, status=status.HTTP_200_OK)
+        return Response({'prediction': prediction_class_name, 'score': formatted_score}, status=status.HTTP_200_OK)
 
 
 

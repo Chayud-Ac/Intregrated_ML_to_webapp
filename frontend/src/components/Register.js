@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import WebFont from "webfontloader";
 
 WebFont.load({
@@ -21,6 +22,7 @@ const Register = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null); // New state for success messages
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +38,10 @@ const Register = () => {
       );
       console.log(response.data);
       setError(null); // Clear error if the request is successful
-      setSuccess("Registration successful!"); // Set success message
+      setSuccess("Registration successful! Redirecting to login..."); // Set success message
+      setTimeout(() => {
+        navigate("/login"); // Redirect to Login.js after 3 seconds
+      }, 3000);
     } catch (error) {
       console.error("Error Response:", error.response); // Log the error response
       // Check if the error response has a data attribute

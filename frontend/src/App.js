@@ -16,12 +16,12 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/register" element={<Register />} />
+          <Route path="/Database" element={<Database />} />
           <Route path="/login" element={<Login />} />
           <Route path="/TumorPrediction" element={<TumorPrediction />} />
           <Route path="/predict-diabetes" element={<DiabetesPrediction />} />
           <Route path="/protected" component={ProtectedComponent} />
-          <Route path="/" element={<Database />} />
+          <Route path="/" element={<Register />} />
           {/* <Route path="/predict" element={<Prediction />} /> */}
         </Routes>
       </div>
