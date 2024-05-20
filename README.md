@@ -106,4 +106,6 @@ python manage.py runserver
 
 ### Local Image
 
-![Screenshot](C:/Users/aciea/Desktop/intregrated/Capture.png)
+![Screenshot](sample_image/web/Capture.PNG.png)
+![Screenshot](sample_image/web/Capture2.PNG.png)
+![Screenshot](sample_image/web/data.PNG.png)
