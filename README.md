@@ -9,6 +9,13 @@
 - API Integration with Django and Django REST Framework
 - React Frontend
 - linking django with sqlserver
+- Show table of data
+
+## Working step
+
+- Register
+- Login
+- Select prediction and predict
 
 ## Setup Instructions
 
@@ -95,15 +102,7 @@ python manage.py runserver
    npm install
    ```
 
-4. **Set Up Environment Variables**
-
-   Create a `.env` file in the `frontend` directory:
-
-   ```env
-   REACT_APP_API_URL=http://localhost:8000/api
-   ```
-
-5. **Start the Development Server**
+4. **Start the Development Server**
 
    Start the React development server:
 

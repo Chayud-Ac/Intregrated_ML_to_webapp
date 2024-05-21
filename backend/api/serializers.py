@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model # type: ignore
 from rest_framework.validators import UniqueValidator # type: ignore
 from django.contrib.auth.password_validation import validate_password # type: ignore
 from .models import Patient, BrainTumorPrediction , DiabetesPrediction
+from django.contrib.auth.models import Group # type: ignore
 
 User = get_user_model()
 
@@ -41,6 +42,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+
+        # Assign group based on role
+        if user.role == 'doctor':
+            healthcare_provider_group = Group.objects.get(name='HealthcareProvider')
+            user.groups.add(healthcare_provider_group)
+
         return user
 
 class UserSerializer(serializers.ModelSerializer):

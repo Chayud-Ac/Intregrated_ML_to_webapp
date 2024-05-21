@@ -2,6 +2,13 @@ from django.contrib.auth.models import AbstractUser, Group, Permission # type: i
 from django.db import models # type: ignore
 
 class User(AbstractUser):
+    '''
+    Create User model to store in database. groups field is relation to group table by group id in group table
+    user_permissions relate to permission table by (permission_id)
+    create role file (Doctor , Admin)
+    
+
+    '''
     ROLE_CHOICES = (
         ('doctor', 'Doctor'),
         ('admin', 'Admin'),
